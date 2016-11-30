@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="books.xhtml"><i>Book Exchange</i></a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="books.xhtml">Home</a></li>
+                    <li><a href="leave-book.xhtml">Leave book</a></li>
+                    <li><a href="registration.xhtml">Registration</a></li>
+                    <li><a href="user-settings.xhtml">User settings</a></li>
+                    <li><h:form styleClass="form-horizontal" action="login.xhtml">
+                        <h:commandButton value="Logout" styleClass="btn btn-danger navbar-btn"
+                                         action="#{logoutBean.logout()}"/>
+                    </h:form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <h:dataTable id="shareTable" class="table table-bordered table-striped"
+                             value="#{bookBean.books()}" var="i" border="1">
+                    <h:column>
+                        <f:facet name="header">Title</f:facet>
+                        #{i.title}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Author</f:facet>
+                        #{i.author}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Language</f:facet>
+                        #{i.language}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Owner</f:facet>
+                        #{i.user.login}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Take book</f:facet>
+                        <h:form styleClass="form-horizontal" action="books">
+                            <h:commandButton styleClass="btn btn-default" value="Take"
+                                             action="#{takeBookBean.update(i.id)}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>
