@@ -1,33 +1,31 @@
 package controllers;
 
-
-import dao.BookDAO;
-import dao.BookDAOimpl;
 import dao.UserDAO;
 import dao.UserDAOimpl;
 import entities.User;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.security.Principal;
 
-@ManagedBean(name="takeBookBean")
-public class TakeBookManageBean {
-
-    private BookDAO bookDAO = new BookDAOimpl();
+@ManagedBean(name = "userData")
+public class UserDataManageBean {
 
     private UserDAO userDAO = new UserDAOimpl();
 
-    public int getCurrentUserId() {
+    @ManagedProperty(value = "#{user}")
+    private User currentUser;
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public User getCurrentUser() {
         Principal userPrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String login = userPrincipal.getName();
+        System.out.print(login);
         User user = userDAO.findByLogin(login);
-        return user.getId();
+        return user;
     }
-
-    public void update(int idBook){
-        bookDAO.delete(idBook);
-        //bookDAO.updateOwner(idBook, getCurrentUserId());
-    }
-
 }

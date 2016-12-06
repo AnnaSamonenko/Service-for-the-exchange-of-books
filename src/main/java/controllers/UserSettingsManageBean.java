@@ -6,7 +6,9 @@ import entities.User;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.security.Principal;
 
 @ManagedBean(name = "userSettingsBean")
@@ -33,8 +35,14 @@ public class UserSettingsManageBean {
         return user.getId();
     }
 
-    public void update(User user){
+    public void update(User user) {
         userDAO.update(getCurrentUserId(), user);
+    }
+
+    public void delete() throws IOException {
+        userDAO.delete(getCurrentUserId());
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect("/Coursework/login.xhtml");
     }
 
 }

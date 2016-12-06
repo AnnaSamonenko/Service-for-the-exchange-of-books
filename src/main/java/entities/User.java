@@ -2,6 +2,9 @@ package entities;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.List;
 
 @Entity
@@ -88,8 +91,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws NoSuchAlgorithmException {
+        this.password = getEncodedPassword(password);
     }
 
     public String getRole() {
@@ -106,5 +109,17 @@ public class User {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    private static String getEncodedPassword(String password) throws NoSuchAlgorithmException {
+        byte[] passwordHash = Base64.getEncoder().encode(encryption(password));
+        return new String(passwordHash);
+    }
+
+    private static byte[] encryption(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] passwordBytes = password.getBytes();
+        byte[] hash = md.digest(passwordBytes);
+        return hash;
     }
 }

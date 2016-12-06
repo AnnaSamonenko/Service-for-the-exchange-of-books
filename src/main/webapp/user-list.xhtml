@@ -4,10 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
->
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Books</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -19,16 +16,14 @@
         <div class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="books.xhtml">Book Exchange</a>
+                    <a class="navbar-brand" href="books.xhtml">Users</a>
                 </div>
-
                 <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('User')}">
                     <ui:include src="template/navUser.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('Admin')}">
                     <ui:include src="template/navAdmin.xhtml"/>
                 </ui:fragment>
-
             </div>
         </div>
         <div class="row">

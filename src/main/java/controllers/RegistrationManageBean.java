@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 @ManagedBean(name = "userBean")
 public class RegistrationManageBean {
@@ -25,14 +27,20 @@ public class RegistrationManageBean {
         this.user = user;
     }
 
-    public void create(User user){
+    public void create(User user) {
         userDAO.create(user);
         try {
             FacesContext.getCurrentInstance().getExternalContext()
                     .redirect("/Coursework/books.xhtml");
-        }
-        catch (IOException ex){
+        } catch (IOException ex) {
             System.out.print(ex.getMessage());
         }
+    }
+
+    public List<String> findAllRoles(){
+        List<String> roles = new  LinkedList<>();
+        roles.add("User");
+        roles.add("Admin");
+        return roles;
     }
 }

@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
 </h:head>
 <h:body>
@@ -19,47 +20,52 @@
                 <div class="navbar-brand">
                     User settings
                 </div>
+                <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('User')}">
+                    <ui:include src="template/navUser.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('Admin')}">
+                    <ui:include src="template/navAdmin.xhtml"/>
+                </ui:fragment>
             </div>
+            Personal information:
             <h:form styleClass="form-horizontal" action="books">
                 <div class="form-group">
                     <h:outputLabel value="Name: " styleClass="control-label col-sm-2"/>
                     <div class="col-sm-10">
-                        <h:inputText id="userName" styleClass="form-control" value="#{user.name}"/>
+                        <p:inputText id="userName" styleClass="form-control" value="#{userData.currentUser.name}"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <h:outputLabel value="Surname: " styleClass="control-label col-sm-2"/>
                     <div class="col-sm-10">
-                        <h:inputText styleClass="form-control" value="#{user.surname}"/>
+                        <p:inputText id="userSurname" styleClass="form-control"
+                                     value="#{userData.currentUser.surname}"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <h:outputLabel value="Country: " styleClass="control-label col-sm-2"/>
                     <div class="col-sm-10">
-                        <h:inputText styleClass="form-control" value="#{user.country}"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel value="Login: " styleClass="control-label col-sm-2"/>
-                    <div class="col-sm-10">
-                        <h:inputText styleClass="form-control" value="#{user.login}"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel value="Password: " styleClass="control-label col-sm-2"/>
-                    <div class="col-sm-10">
-                        <h:inputText styleClass="form-control" value="#{user.password}"/>
+                        <p:inputText id="userCountry" styleClass="form-control"
+                                     value="#{userData.currentUser.country}"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <h:commandButton styleClass="btn btn-default" value="Change"
-                                         action="#{userSettingsBean.update(user)}"/>
+                                         action="#{userSettingsBean.update(userData.currentUser)}"/>
+                    </div>
+                </div>
+            </h:form>
+
+            <h:form styleClass="form-horizontal" >
+                <div class="form-group">
+                    <h:outputLabel value="Delete: " styleClass="control-label col-sm-2"/>
+                    <div class="col-sm-10">
+                        <h:commandButton styleClass="btn btn-default" value="Delete"
+                                         action="#{userSettingsBean.delete()}"/>
                     </div>
                 </div>
             </h:form>

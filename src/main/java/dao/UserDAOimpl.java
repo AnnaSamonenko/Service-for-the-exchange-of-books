@@ -50,4 +50,11 @@ public class UserDAOimpl implements UserDAO{
         Query query = entityManager.createQuery("select u from User u Where login = '" + login +"'");
         return (User)query.getResultList().get(0);
     }
+
+    public void updateHashPassword(int idUser){
+        User user = entityManager.find(User.class, idUser);
+        entityManager.getTransaction().begin();
+        //user.setPassword(user.get);
+        entityManager.getTransaction().commit();
+    }
 }

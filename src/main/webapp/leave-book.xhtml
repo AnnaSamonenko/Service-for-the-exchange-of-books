@@ -16,8 +16,16 @@
             <div class="navbar-brand">
                 Leave book
             </div>
+
+            <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('User')}">
+                <ui:include src="template/navUser.xhtml"/>
+            </ui:fragment>
+            <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('Admin')}">
+                <ui:include src="template/navAdmin.xhtml"/>
+            </ui:fragment>
+
         </div>
-        <h:form styleClass="form-horizontal" action="books">
+        <h:form styleClass="form-horizontal" action="books.xhtml">
             <div class="form-group">
                 <h:outputLabel value="Title of a book: " styleClass="control-label col-sm-2"/>
                 <div class="col-sm-10">
