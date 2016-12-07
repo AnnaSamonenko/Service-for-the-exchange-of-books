@@ -23,7 +23,7 @@
         <web-resource-collection>
             <web-resource-name>user</web-resource-name>
             <description>application security for user</description>
-            <url-pattern>/books.xhtml</url-pattern>
+            <url-pattern>/book-list.xhtml</url-pattern>
             <url-pattern>/leave-book.xhtml</url-pattern>
             <url-pattern>/user-settings.xhtml</url-pattern>
         </web-resource-collection>
@@ -36,7 +36,7 @@
         <web-resource-collection>
             <web-resource-name>admin</web-resource-name>
             <description>application security for admin</description>
-            <url-pattern>/books.xhtml</url-pattern>
+            <url-pattern>/book-list.xhtml</url-pattern>
             <url-pattern>/leave-book.xhtml</url-pattern>
             <url-pattern>/user-settings.xhtml</url-pattern>
             <url-pattern>/user-list.xhtml</url-pattern>

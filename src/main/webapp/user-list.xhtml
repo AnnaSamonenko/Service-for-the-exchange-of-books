@@ -16,7 +16,7 @@
         <div class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="books.xhtml">Users</a>
+                    <a class="navbar-brand" href="book-list.xhtml">Users</a>
                 </div>
                 <ui:fragment rendered="#{facesContext.externalContext.isUserInRole('User')}">
                     <ui:include src="template/navUser.xhtml"/>
@@ -28,34 +28,22 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <h:dataTable id="shareTable" class="table table-bordered table-striped"
-                             value="#{bookBean.books()}" var="i" border="1">
+                <h:dataTable id="shareTable" styleClass="table table-bordered table-striped"
+                             value="#{userBean.getAllUsers()}" var="i" border="1">
                     <h:column>
-                        <f:facet name="header">Title</f:facet>
-                        #{i.title}
+                        <f:facet name="header">Name Surname</f:facet>
+                        #{i.name} #{i.surname}
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Author</f:facet>
-                        #{i.author}
+                        <f:facet name="header">Country</f:facet>
+                        #{i.country}
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Language</f:facet>
-                        #{i.language}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Owner</f:facet>
-                        #{i.user.login}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Take book</f:facet>
-                        <h:form styleClass="form-horizontal" action="books">
-                            <h:commandButton styleClass="btn btn-default" value="Take"
-                                             action="#{takeBookBean.update(i.id)}"/>
-                        </h:form>
+                        <f:facet name="header">Books</f:facet>
+                        <ui:repeat var="item" value="#{i.books}"> #{item.title} - #{item.author} <br/>
+                        </ui:repeat>
                     </h:column>
                 </h:dataTable>
             </div>

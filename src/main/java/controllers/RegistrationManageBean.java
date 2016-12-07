@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-@ManagedBean(name = "userBean")
+@ManagedBean(name = "userRegistrationBean")
 public class RegistrationManageBean {
 
     @ManagedProperty(value = "#{user}")
@@ -31,7 +31,7 @@ public class RegistrationManageBean {
         userDAO.create(user);
         try {
             FacesContext.getCurrentInstance().getExternalContext()
-                    .redirect("/Coursework/books.xhtml");
+                    .redirect("/Coursework/book-list.xhtml");
         } catch (IOException ex) {
             System.out.print(ex.getMessage());
         }

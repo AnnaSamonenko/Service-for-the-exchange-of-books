@@ -12,13 +12,13 @@
 <body>
 <ui:composition>
     <ul class="nav navbar-nav">
-        <li class="active"><a href="books.xhtml">Home</a></li>
+        <li class="active"><a href="book-list.xhtml">Home</a></li>
         <li><a href="leave-book.xhtml">Leave book</a></li>
         <li><a href="user-settings.xhtml">Settings</a></li>
         <li><a href="user-list.xhtml">Users</a></li>
         <li><h:form styleClass="form-horizontal">
             <h:commandButton value="Logout" styleClass="btn btn-danger navbar-btn"
-                             action="#{logoutBean.logout()}"/>
+                             action="#{currentUser.logout()}"/>
         </h:form>
         </li>
     </ul>

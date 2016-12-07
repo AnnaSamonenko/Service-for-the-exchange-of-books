@@ -11,38 +11,29 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.security.Principal;
 
-@ManagedBean(name = "userSettingsBean")
-public class UserSettingsManageBean {
-
-    @ManagedProperty(value = "#{user}")
-    private User user;
+@ManagedBean(name = "currentUser")
+public class CurrentUserManageBean {
 
     private UserDAO userDAO = new UserDAOimpl();
 
-    public User getUser() {
-        return user;
+    @ManagedProperty(value = "#{user}")
+    private User currentUser;
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getCurrentUserId() {
+    public User getCurrentUser() {
         Principal userPrincipal = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
         String login = userPrincipal.getName();
         System.out.print(login);
         User user = userDAO.findByLogin(login);
-        return user.getId();
+        return user;
     }
 
-    public void update(User user) {
-        userDAO.update(getCurrentUserId(), user);
-    }
-
-    public void delete() throws IOException {
-        userDAO.delete(getCurrentUserId());
+    public void logout() throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.invalidateSession();
         externalContext.redirect("/Coursework/login.xhtml");
     }
-
 }
